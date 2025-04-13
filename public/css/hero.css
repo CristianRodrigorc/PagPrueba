@@ -1,5 +1,6 @@
 /* Sección Hero */
 #hero {
+  padding-top: 60px;
   position: relative; /* Necesario para la imagen de fondo */
   width: 100%;
   height: 100vh;
