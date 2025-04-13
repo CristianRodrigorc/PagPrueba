@@ -1,0 +1,28 @@
+.modal-content {
+    border-radius: .625rem;
+    box-shadow: 0 1rem 3rem rgba(132, 138, 163, 0.2);
+    border: none;
+}
+
+.modal-header {
+    background: linear-gradient(0deg, #376be6 0%, #6470ef 100%);
+    color: white;
+    border-radius: .625rem .625rem 0 0;
+    padding: 1.5rem;
+}
+
+.modal-header .btn-close {
+    filter: invert(1);
+}
+
+.modal-body {
+    padding: 2rem;
+    font-size: 1rem;
+    color: #333;
+}
+
+.modal-footer {
+    background-color: #f8f9fa;
+    border-radius: 0 0 .625rem .625rem;
+    padding: 1rem;
+}
