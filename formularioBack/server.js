@@ -56,8 +56,10 @@ app.post('/api/guardarFormulario', (req, res) => {
     res.status(200).send({ message: 'Formulario guardado correctamente y Excel actualizado.' });
 });
 
-// Iniciar el servidor
-const port = 3000;
+// 🚨 CAMBIO IMPORTANTE PARA RENDER:
+// Usar el puerto asignado por Render (process.env.PORT) o 3000 en local
+const port = process.env.PORT || 3000;
+
 app.listen(port, () => {
     console.log(`Servidor escuchando en http://localhost:${port}`);
 });
