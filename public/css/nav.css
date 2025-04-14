@@ -6,7 +6,7 @@
     width: 100%;
     z-index: 3;
     padding: 1rem 0;
-    background-color: rgba(3, 83, 255, 0.842); /* Un poco más oscuro que antes */
+    background-color: #376be6; 
     box-shadow: 0 4px 16px rgba(0, 0, 0, 1.8); /* Sombra más intensa */
 }
 

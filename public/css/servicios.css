@@ -9,20 +9,35 @@
     height: 100%;
     transition: all ease-in-out 0.3s;
   }
-  
-  .services .service-item .icon {
-    background: var(--accent-color);
-    color: var(--contrast-color);
-    margin: 0 auto;
-    width: 64px;
-    height: 64px;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-    transition: 0.3s;
-  }
+
+  .services .section-title h2 {
+    font-size: 3rem; /* Aumentado el tamaño de la fuente a 3rem */
+    font-weight: 700;
+    margin: 0;  /* Elimina márgenes adicionales */
+}
+
+.services .section-title p {
+    color: #c2bdbd;
+    font-size: 18px; /* Hice el texto más pequeño */
+    font-weight: 700;
+    text-transform: uppercase;
+    font-family: 'Arial', sans-serif; /* Fuente para "La Empresa" */
+    position: relative; /* Necesario para colocar la línea después del p */
+}
+
+  .services .section-title h2::after {
+    content: "";
+    width: 220px; /* Ajusté el ancho de la línea */
+    height: 2px;  /* Ajusté el grosor de la línea */
+    display: block;
+    background: #FFB319; /* Color amarillo */
+    margin-top: 0; /* Sin espacio entre el p y la línea */
+}
+
+/* Agregar margen entre el h2 y el contenido siguiente */
+.container[data-aos="fade-up"] {
+  margin-top: 80px; /* Ajusta este valor según lo que necesites */
+}
   
   .services .service-item .icon i {
     font-size: 28px;

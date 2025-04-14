@@ -1,9 +1,7 @@
 /*--------------------------------------------------------------
 # Nosotros Seccion
 --------------------------------------------------------------*/
-#about {
-    margin-top: 120px; /* Añadido para crear un espacio entre la sección hero y about */
-}
+
 
 .about .section-title {
     padding-bottom: 0;  /* Eliminado el padding para que la raya esté más cerca */
@@ -36,7 +34,7 @@
 
 /* Agregar margen entre el h2 y el contenido siguiente */
 .container[data-aos="fade-up"] {
-    margin-top: 40px; /* Ajusta este valor según lo que necesites */
+    margin-top: 80px; /* Ajusta este valor según lo que necesites */
 }
 
 /*--------------------------------------------------------------
