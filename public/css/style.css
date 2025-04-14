@@ -24,6 +24,19 @@
     cursor: pointer;
 }
 
+.section {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+@media (max-width: 767px) {
+  .section {
+      padding-top: 80px;
+      padding-bottom: 80px;
+  }
+}
+
+
 /* GENERAL */
 .shadow-lg {
     box-shadow: 0 1rem 3rem rgba(132, 138, 163, 0.1) !important;

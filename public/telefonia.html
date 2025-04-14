@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="css/nav.css"> <!-- Estilos de la sección Nav -->
     <link rel="stylesheet" href="css/cards.css"> <!-- Estilos para las tarjetas -->
+    <link rel="stylesheet" href="css/formulario.css"> <!-- Estilos para las Formulario -->
     <link rel="stylesheet" href="css/footer.css"> <!-- Estilos para el footer -->
 
     <link href="media/logos/ico-blanconaranja.png" rel="icon">
@@ -71,9 +72,9 @@
                             para brindarte lo que necesitas. ¡Descubre la diferencia y lleva tu comunicación al
                             siguiente nivel con nosotros!"
                         <ul>
-                            <li>Planes adaptados a tus necesidades.</li>
-                            <li>Cobertura de alta calidad en todo momento.</li>
-                            <li>Atención al cliente de primera para resolver todas tus dudas.</li>
+                            <li><i class="bi bi-check2-all"></i>Planes adaptados a tus necesidades.</li>
+                            <li><i class="bi bi-check2-all"></i>Cobertura de alta calidad en todo momento.</li>
+                            <li><i class="bi bi-check2-all"></i>Atención al cliente de primera para resolver todas tus dudas.</li>
                         </ul>
                         ¡Lleva tu comunicación al siguiente nivel! Descubre cómo podemos mejorar tu
                         experiencia
@@ -130,7 +131,7 @@
                                                 <div class="form-group">
                                                     <label for="required-field">Empresa</label>
                                                     <input type="text" class="form-control" id="empresa"
-                                                        name="emppresa">
+                                                        name="empresa">
                                                 </div>
                                             </div>
 
@@ -198,8 +199,8 @@
                                             </div>
 
                                             <div class="col-sm-12 mb-3">
-                                                <button type="submit" name="submit"
-                                                    class="btn btn-primary ">Enviar</button>
+                                                <button type="submit" id="btnEnviar" class="btn btn-primary w-100">Enviar</button>
+
                                             </div>
 
                                             <div class="modal fade" id="politicaModal" tabindex="-1"
@@ -263,7 +264,7 @@
 
 
     <!-- Validador Formulario -->
-    <script src="js/validador.js"></script>
+    <script src="js/validador_lit.js"></script>
 
     <!-- Código Desplegables -->
     <script src="js/ubicaciones.js"></script>

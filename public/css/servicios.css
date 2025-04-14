@@ -18,11 +18,11 @@
 
 .services .section-title p {
     color: #c2bdbd;
-    font-size: 18px; /* Hice el texto más pequeño */
+    font-size: 18px; 
     font-weight: 700;
     text-transform: uppercase;
-    font-family: 'Arial', sans-serif; /* Fuente para "La Empresa" */
-    position: relative; /* Necesario para colocar la línea después del p */
+    font-family: 'Arial', sans-serif; 
+    position: relative; 
 }
 
   .services .section-title h2::after {
@@ -36,7 +36,7 @@
 
 /* Agregar margen entre el h2 y el contenido siguiente */
 .container[data-aos="fade-up"] {
-  margin-top: 80px; /* Ajusta este valor según lo que necesites */
+  margin-top: 0px; 
 }
   
   .services .service-item .icon i {

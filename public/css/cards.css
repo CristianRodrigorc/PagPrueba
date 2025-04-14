@@ -3,3 +3,34 @@
     padding-top: 100px;
     padding-bottom: 40px;
 }
+
+.card-body {
+    padding: 25px;
+}
+
+.card-body ul {
+    list-style: none; /* Elimina los puntos predeterminados */
+    padding: 0; /* Elimina cualquier padding adicional */
+}
+
+.card-body ul li {
+    padding: 10px 0 0 0;
+    display: flex;
+    align-items: center; /* Asegura que los íconos estén alineados con el texto */
+}
+
+.card-body ul i {
+    color: #FFB319; /* El color amarillo se aplica a los íconos */
+    margin-right: 10px; /* Espacio entre el ícono y el texto */
+    font-size: 1.25rem; /* Tamaño de los íconos */
+}
+
+.contenedor_cards .row {
+    display: flex;
+    align-items: stretch;
+  }
+  
+  .custom-card,
+  .form-wrapper-equal {
+    height: 100%;
+  }
