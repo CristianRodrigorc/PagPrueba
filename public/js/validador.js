@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const formulario1 = document.querySelector('.contact-form.form-validate');
   if (formulario1) {
     formulario1.addEventListener('submit', (e) => {
-      e.preventDefault();
+      e.preventDefault(); // Prevenimos el envío del formulario
 
       const fields = [
         { id: 'firstName', validate: (input) => input.value.trim() ? null : "El nombre es obligatorio." },
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ];
 
       if (validateForm(formulario1, fields)) {
-        formulario1.submit();
+        formulario1.submit(); // Ahora que la validación pasó, enviamos el formulario
       }
     });
   }
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const formulario2 = document.querySelector('.contact-form.form-validate2');
   if (formulario2) {
     formulario2.addEventListener('submit', (e) => {
-      e.preventDefault();
+      e.preventDefault(); // Prevenimos el envío del formulario
 
       const fields = [
         { id: 'firstName', validate: (input) => input.value.trim() ? null : "El nombre es obligatorio." },
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ];
 
       if (validateForm(formulario2, fields)) {
-        formulario2.submit();
+        formulario2.submit(); // Ahora que la validación pasó, enviamos el formulario
       }
     });
   }
