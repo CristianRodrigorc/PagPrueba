@@ -1,42 +1,92 @@
+// Importa los paquetes necesarios
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const { google } = require('googleapis'); // Para enviar datos a Google Sheets
+const XLSX = require('xlsx');
+const fs = require('fs');
+const path = require('path');
+
+const app = express(); // Asegúrate de tener esta línea para crear la instancia de Express
+
+// Middleware para procesar JSON y permitir CORS
+app.use(bodyParser.json());
+app.use(cors());
+
+// Ruta para guardar los datos en un archivo Excel local
+app.post('/api/guardarFormulario', (req, res) => {
+  const { firstName, lastName, email, phone, terminos, contacto } = req.body;
+
+  const respuesta = { firstName, lastName, email, phone, terminos, contacto };
+  const filePath = path.join(__dirname, 'formulario_respuestas.xlsx');
+
+  let wb;
+  if (fs.existsSync(filePath)) {
+    // Si el archivo Excel ya existe, lo abrimos
+    wb = XLSX.readFile(filePath);
+  } else {
+    // Si no existe, creamos un nuevo archivo Excel
+    wb = XLSX.utils.book_new();
+  }
+
+  const ws = XLSX.utils.json_to_sheet([respuesta]);
+  const sheetName = 'Respuestas del Formulario';
+
+  if (!wb.Sheets[sheetName]) {
+    // Si no existe la hoja 'Respuestas del Formulario', la agregamos
+    XLSX.utils.book_append_sheet(wb, ws, sheetName);
+  } else {
+    // Si la hoja existe, agregamos la nueva respuesta
+    const existingSheet = wb.Sheets[sheetName];
+    const existingData = XLSX.utils.sheet_to_json(existingSheet);
+    const updatedData = [...existingData, respuesta];
+    const updatedSheet = XLSX.utils.json_to_sheet(updatedData);
+    wb.Sheets[sheetName] = updatedSheet;
+  }
+
+  // Guardamos el archivo Excel con las nuevas respuestas
+  XLSX.writeFile(wb, filePath);
+  res.status(200).send({ message: 'Formulario guardado localmente en Excel.' });
+});
+
 // Ruta para enviar los datos a Google Sheets
 app.post('/api/enviarAGoogleSheet', async (req, res) => {
   try {
-    const { firstName, lastName, email, phone, terminos, contacto, formType } = req.body;
+    const { firstName, lastName, email, phone, terminos, contacto } = req.body;
 
-    // Obtener el cliente de autenticación para Google
+    const auth = new google.auth.GoogleAuth({
+      credentials: JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT),
+      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+    });
+
+    // Obtén el cliente de autenticación de Google
     const client = await auth.getClient();
     const sheets = google.sheets({ version: 'v4', auth: client });
 
-    // ID de la hoja de Google Sheets (Reemplaza con el ID de tu hoja real)
-    const spreadsheetId = '1m59KZA3I9bWt7htDmWQMI9iLc4qWyrxRpPFeh8lazaQ'; // Aquí debe ir el ID de tu Google Sheets
-    let range;
+    // ID de la hoja de Google Sheets (reemplaza con tu ID real)
+    const spreadsheetId = '1m59KZA3I9bWt7htDmWQMI9iLc4qWyrxRpPFeh8lazaQ';
+    const range = 'Colaboradores!A2:F'; // Asegúrate de tener una hoja llamada "Colaboradores"
 
-    // Si es el formulario 1, se envía a la hoja "Colaboradores"
-    if (formType === 'form1') {
-      range = 'Colaboradores!A2:F'; // Asegúrate de tener una hoja llamada "Colaboradores"
-    } 
-    // Si es el formulario 2, se envía a la hoja "Lits"
-    else if (formType === 'form2') {
-      range = 'Lits!A2:F'; // Asegúrate de tener una hoja llamada "Lits"
-    } else {
-      return res.status(400).json({ error: 'Formulario no reconocido' });
-    }
-
-    // Datos que se agregarán al Google Sheets
+    // Datos a enviar
     const values = [[firstName, lastName, email, phone, terminos, contacto]];
 
-    // Enviar los datos a Google Sheets
+    // Envía los datos a Google Sheets
     await sheets.spreadsheets.values.append({
       spreadsheetId,
       range,
-      valueInputOption: 'RAW', // Usamos 'RAW' para insertar los datos tal cual como se envían
-      requestBody: { values }, // Los datos a insertar
+      valueInputOption: 'RAW',
+      requestBody: { values },
     });
 
-    // Responder al cliente indicando que los datos se enviaron a Google Sheets
     res.status(200).json({ message: 'Datos enviados a Google Sheets correctamente.' });
   } catch (error) {
     console.error('Error al enviar a Google Sheets:', error);
     res.status(500).json({ error: 'Error al guardar en Google Sheets' });
   }
+});
+
+// Puerto de escucha
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Servidor escuchando en http://localhost:${port}`);
 });
