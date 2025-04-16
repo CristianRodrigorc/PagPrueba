@@ -24,19 +24,19 @@ app.post('/api/guardarFormulario', (req, res) => {
   const {
     formType,
     firstName, lastName, email, phone,
-    terminos, contacto,
     empresa, comuauto, provincia, municipio, codPostal, direccion
   } = req.body;
 
   let respuesta = {};
 
   if (formType === 'form1') {
-    respuesta = { firstName, lastName, email, phone, terminos, contacto };
+    respuesta = { firstName, lastName, email, phone };
   } else if (formType === 'form2') {
     respuesta = {
       firstName, lastName, email, phone,
       empresa, comuauto, provincia, municipio, codPostal, direccion,
-      terminos, contacto
+      asesor: 'no asignado',
+      contactado: 'no contactado'
     };
   } else {
     return res.status(400).json({ message: 'Formulario no reconocido.' });
@@ -74,18 +74,21 @@ app.post('/api/enviarAGoogleSheet', async (req, res) => {
     const {
       formType,
       firstName, lastName, email, phone,
-      terminos, contacto,
       empresa, comuauto, provincia, municipio, codPostal, direccion
     } = req.body;
 
     let values, range;
 
     if (formType === 'form1') {
-      values = [[firstName, lastName, email, phone, terminos, contacto]];
-      range = 'Colaboradores!A2:F';
+      values = [[firstName, lastName, email, phone]];
+      range = 'Colaboradores!A2:D';
     } else if (formType === 'form2') {
-      values = [[firstName, lastName, email, phone, empresa, comuauto, provincia, municipio, codPostal, direccion, terminos, contacto]];
-      range = 'Lits!A2:L';
+      values = [[
+        firstName, lastName, email, phone,
+        empresa, comuauto, provincia, municipio, codPostal, direccion,
+        'no asignado', 'no contactado'
+      ]];
+      range = 'Lits!A2:M';
     } else {
       return res.status(400).json({ message: 'Formulario no reconocido.' });
     }
