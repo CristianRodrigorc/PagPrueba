@@ -8,7 +8,7 @@ fetch('js/arbol.json')
     // Cargar las Comunidades Autónomas
     data.forEach(comunidad => {
       const option = document.createElement('option');
-      option.value = comunidad.code;
+      option.value = comunidad.label;  // Cambié esto para enviar el nombre de la comunidad
       option.textContent = comunidad.label;
       comunidadSelect.appendChild(option);
     });
@@ -21,7 +21,7 @@ fetch('js/arbol.json')
       if (comunidad) {
         comunidad.provinces.forEach(provincia => {
           const option = document.createElement('option');
-          option.value = provincia.code;
+          option.value = provincia.label;  // Cambié esto para enviar el nombre de la provincia
           option.textContent = provincia.label;
           provinciaSelect.appendChild(option);
         });
@@ -37,7 +37,7 @@ fetch('js/arbol.json')
         if (provincia) {
           provincia.towns.forEach(municipio => {
             const option = document.createElement('option');
-            option.value = municipio.code;
+            option.value = municipio.label;  // Cambié esto para enviar el nombre del municipio
             option.textContent = municipio.label;
             municipioSelect.appendChild(option);
           });
