@@ -66,11 +66,13 @@ app.post('/api/enviarAGoogleSheet', async (req, res) => {
   try {
     const { firstName, lastName, email, phone, terminos, contacto } = req.body;
 
+    // Obtener el cliente de autenticación para Google
     const client = await auth.getClient();
     const sheets = google.sheets({ version: 'v4', auth: client });
 
-    const spreadsheetId = 'TU_ID_DE_HOJA_GOOGLE'; // 👈 Reemplaza esto con tu ID de Google Sheets
-    const range = 'Respuestas!A2:F'; // 👈 Asegurate de tener una hoja llamada "Respuestas"
+    // Asegúrate de reemplazar con el ID correcto de tu hoja de Google Sheets
+    const spreadsheetId = '1m59KZA3I9bWt7htDmWQMI9iLc4qWyrxRpPFeh8lazaQ'; // 👈 Reemplaza con tu ID real
+    const range = 'Posibles_Colaboradores!A2:F'; // 👈 Asegúrate de tener una hoja llamada "Posibles_Colaboradores"
 
     const values = [[firstName, lastName, email, phone, terminos, contacto]];
 
