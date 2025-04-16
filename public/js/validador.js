@@ -1,74 +1,89 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Función de validación para cualquier formulario
-    const validateForm = (form, fields) => {
-        let isValid = true;
-        let errorMessages = [];
 
-        // Validación de cada campo
-        fields.forEach(field => {
-            const input = document.getElementById(field.id);
-            if (!input) return; // Si no existe el campo, no hacer nada
-
-            // Validación del campo
-            let errorMessage = field.validate(input);
-            if (errorMessage) {
-                isValid = false;
-                errorMessages.push(errorMessage);
-            }
+    // Función genérica para enviar cualquier formulario
+    const enviarFormulario = async (datos, formType, formulario) => {
+      try {
+        const response = await fetch('/api/enviarAGoogleSheet', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ formType, ...datos })
         });
-
-        // Si no es válido, mostrar los errores
-        if (!isValid) {
-            alert(errorMessages.join("\n"));
+  
+        const resultado = await response.json();
+  
+        if (response.ok) {
+          alert('Formulario enviado correctamente.');
+          formulario.reset();
+        } else {
+          alert('Error al enviar el formulario: ' + (resultado?.error || 'Error desconocido.'));
         }
-
-        return isValid;
+      } catch (err) {
+        console.error('Error en fetch:', err);
+        alert('Error al enviar los datos.');
+      }
     };
-
-    // Función para manejar el envío del formulario
-    const handleFormSubmit = (form, fields) => {
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            if (validateForm(form, fields)) {
-                form.requestSubmit();  // Enviar el formulario con el método requestSubmit()
-            }
-        });
-    };
-
-    // Validación para el primer formulario
-    const formulario1 = document.querySelector('.contact-form.form-validate');
-    if (formulario1) {
-        const fields1 = [
-            { id: 'firstName1', validate: (input) => input.value.trim() ? null : "El nombre es obligatorio." },
-            { id: 'lastName1', validate: (input) => input.value.trim() ? null : "El apellido es obligatorio." },
-            { id: 'email1', validate: (input) => !input.value.trim() ? "El correo es obligatorio." : (!input.value.includes('@') ? "El correo debe ser válido." : null) },
-            { id: 'phone1', validate: (input) => input.value.trim() ? null : "El teléfono es obligatorio." },
-            { id: 'terminos1', validate: (input) => !input.checked ? "Debe aceptar los términos y condiciones." : null },
-            { id: 'contacto1', validate: (input) => !input.checked ? "Debe aceptar recibir información." : null }
-        ];
-
-        handleFormSubmit(formulario1, fields1);
+  
+    // ========== FORMULARIO 1 ==========
+    const form1 = document.querySelector('.form-validate');
+    if (form1) {
+      form1.addEventListener('submit', (e) => {
+        e.preventDefault();
+  
+        const datos = {
+          firstName: document.getElementById('firstName1').value.trim(),
+          lastName: document.getElementById('lastName1').value.trim(),
+          email: document.getElementById('email1').value.trim(),
+          phone: document.getElementById('phone1').value.trim(),
+          terminos: document.getElementById('terminos1').checked,
+          contacto: document.getElementById('contacto1').checked
+        };
+  
+        if (!datos.firstName || !datos.lastName || !datos.email.includes('@') || !datos.phone) {
+          alert('Por favor completa todos los campos requeridos.');
+          return;
+        }
+  
+        if (!datos.terminos || !datos.contacto) {
+          alert('Debes aceptar los términos y condiciones e información.');
+          return;
+        }
+  
+        enviarFormulario(datos, 'form1', form1);
+      });
     }
-
-    // Validación para el segundo formulario
-    const formulario2 = document.querySelector('.contact-form.form-validate2');
-    if (formulario2) {
-        const fields2 = [
-            { id: 'firstName2', validate: (input) => input.value.trim() ? null : "El nombre es obligatorio." },
-            { id: 'lastName2', validate: (input) => input.value.trim() ? null : "El apellido es obligatorio." },
-            { id: 'email2', validate: (input) => !input.value.trim() ? "El correo es obligatorio." : (!input.value.includes('@') ? "El correo debe ser válido." : null) },
-            { id: 'phone2', validate: (input) => input.value.trim() ? null : "El teléfono es obligatorio." },
-            { id: 'empresa', validate: (input) => input.value.trim() ? null : "La empresa es obligatoria." },
-            { id: 'comuauto', validate: (input) => input.value.trim() ? null : "La comunidad autónoma es obligatoria." },
-            { id: 'provincia', validate: (input) => input.value.trim() ? null : "La provincia es obligatoria." },
-            { id: 'municipio', validate: (input) => input.value.trim() ? null : "El municipio es obligatorio." },
-            { id: 'cod-postal', validate: (input) => input.value.trim() ? null : "El código postal es obligatorio." },
-            { id: 'direccion', validate: (input) => input.value.trim() ? null : "La dirección es obligatoria." },
-            { id: 'terminos2', validate: (input) => !input.checked ? "Debe aceptar los términos y condiciones." : null },
-            { id: 'contacto2', validate: (input) => !input.checked ? "Debe aceptar recibir información." : null }
-        ];
-
-        handleFormSubmit(formulario2, fields2);
+  
+    // ========== FORMULARIO 2 ==========
+    const form2 = document.querySelector('.form-validate2');
+    if (form2) {
+      form2.addEventListener('submit', (e) => {
+        e.preventDefault();
+  
+        const datos = {
+          firstName: document.getElementById('firstName2').value.trim(),
+          lastName: document.getElementById('lastName2').value.trim(),
+          email: document.getElementById('email2').value.trim(),
+          phone: document.getElementById('phone2').value.trim(),
+          empresa: document.getElementById('empresa').value.trim(),
+          comuauto: document.getElementById('comuauto').value,
+          provincia: document.getElementById('provincia').value,
+          municipio: document.getElementById('municipio').value,
+          codPostal: document.getElementById('cod-postal').value.trim(),
+          direccion: document.getElementById('direccion').value.trim(),
+          terminos: document.getElementById('terminos2').checked,
+          contacto: document.getElementById('contacto2').checked
+        };
+  
+        if (!datos.firstName || !datos.lastName || !datos.email.includes('@') || !datos.phone) {
+          alert('Por favor completa todos los campos requeridos.');
+          return;
+        }
+  
+        if (!datos.terminos || !datos.contacto) {
+          alert('Debes aceptar los términos y condiciones e información.');
+          return;
+        }
+  
+        enviarFormulario(datos, 'form2', form2);
+      });
     }
-});
+  });  
