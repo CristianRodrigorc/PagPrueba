@@ -1,141 +1,71 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Validación del primer formulario
-  const formulario1 = document.querySelector('.contact-form.form-validate'); // Primer formulario
+  // Función de validación para los formularios
+  const validateForm = (form, fields) => {
+    let isValid = true;
+    let errorMessages = [];
+
+    fields.forEach(field => {
+      const element = document.getElementById(field.id);
+      const errorMessage = field.validate(element);
+      if (errorMessage) {
+        isValid = false;
+        errorMessages.push(errorMessage);
+      }
+    });
+
+    // Mostrar errores si existen
+    if (!isValid) {
+      alert(errorMessages.join("\n"));
+    }
+
+    return isValid;
+  };
+
+  // Formulario 1 - Trabaja con nosotros
+  const formulario1 = document.querySelector('.contact-form.form-validate');
   if (formulario1) {
-      formulario1.addEventListener('submit', (e) => {
-          e.preventDefault();
-          let isValid = true;
+    formulario1.addEventListener('submit', (e) => {
+      e.preventDefault();
 
-          // Obtener campos del primer formulario
-          const firstName = document.getElementById('firstName');
-          const lastName = document.getElementById('lastName');
-          const email = document.getElementById('email');
-          const phone = document.getElementById('phone');
-          const terminos = document.getElementById('terminos');
-          const contacto = document.getElementById('contacto');
+      const fields = [
+        { id: 'firstName', validate: (input) => input.value.trim() ? null : "El nombre es obligatorio." },
+        { id: 'lastName', validate: (input) => input.value.trim() ? null : "El apellido es obligatorio." },
+        { id: 'email', validate: (input) => !input.value.trim() ? "El correo es obligatorio." : (!input.value.includes('@') ? "El correo debe ser válido." : null) },
+        { id: 'phone', validate: (input) => input.value.trim() ? null : "El teléfono es obligatorio." },
+        { id: 'terminos', validate: (input) => !input.checked ? "Debe aceptar los términos y condiciones." : null },
+        { id: 'contacto', validate: (input) => !input.checked ? "Debe aceptar recibir información." : null }
+      ];
 
-          // Validación básica para cada campo
-          if (!firstName.value.trim()) {
-              isValid = false;
-              alert("El nombre es obligatorio.");
-          }
-
-          if (!lastName.value.trim()) {
-              isValid = false;
-              alert("El apellido es obligatorio.");
-          }
-
-          if (!email.value.trim() || !email.value.includes('@')) {
-              isValid = false;
-              alert("El correo es obligatorio y debe ser válido.");
-          }
-
-          if (!phone.value.trim()) {
-              isValid = false;
-              alert("El teléfono es obligatorio.");
-          }
-
-          if (!terminos.checked) {
-              isValid = false;
-              alert("Debe aceptar los términos y condiciones.");
-          }
-
-          if (!contacto.checked) {
-              isValid = false;
-              alert("Debe aceptar recibir información.");
-          }
-
-          if (isValid) {
-              formulario1.submit();  // Si todo es válido, enviar formulario
-          }
-      });
+      if (validateForm(formulario1, fields)) {
+        formulario1.submit();
+      }
+    });
   }
 
-  // Validación del segundo formulario
-  const formulario2 = document.querySelector('.contact-form.form-validate2'); // Segundo formulario
+  // Formulario 2 - Mejoremos tu Factura
+  const formulario2 = document.querySelector('.contact-form.form-validate2');
   if (formulario2) {
-      formulario2.addEventListener('submit', (e) => {
-          e.preventDefault();
-          let isValid = true;
+    formulario2.addEventListener('submit', (e) => {
+      e.preventDefault();
 
-          // Obtener campos del segundo formulario
-          const firstName2 = document.getElementById('firstName');
-          const lastName2 = document.getElementById('lastName');
-          const email2 = document.getElementById('email');
-          const phone2 = document.getElementById('phone');
-          const empresa = document.getElementById('empresa');
-          const comuauto = document.getElementById('comuauto');
-          const provincia = document.getElementById('provincia');
-          const municipio = document.getElementById('municipio');
-          const codPostal = document.getElementById('cod-postal');
-          const direccion = document.getElementById('direccion');
-          const terminos2 = document.getElementById('terminos');
-          const contacto2 = document.getElementById('contacto');
+      const fields = [
+        { id: 'firstName', validate: (input) => input.value.trim() ? null : "El nombre es obligatorio." },
+        { id: 'lastName', validate: (input) => input.value.trim() ? null : "El apellido es obligatorio." },
+        { id: 'email', validate: (input) => !input.value.trim() ? "El correo es obligatorio." : (!input.value.includes('@') ? "El correo debe ser válido." : null) },
+        { id: 'phone', validate: (input) => input.value.trim() ? null : "El teléfono es obligatorio." },
+        { id: 'empresa', validate: (input) => input.value.trim() ? null : "La empresa es obligatoria." },
+        { id: 'comuauto', validate: (input) => input.value.trim() ? null : "La comunidad autónoma es obligatoria." },
+        { id: 'provincia', validate: (input) => input.value.trim() ? null : "La provincia es obligatoria." },
+        { id: 'municipio', validate: (input) => input.value.trim() ? null : "El municipio es obligatorio." },
+        { id: 'cod-postal', validate: (input) => input.value.trim() ? null : "El código postal es obligatorio." },
+        { id: 'direccion', validate: (input) => input.value.trim() ? null : "La dirección es obligatoria." },
+        { id: 'terminos', validate: (input) => !input.checked ? "Debe aceptar los términos y condiciones." : null },
+        { id: 'contacto', validate: (input) => !input.checked ? "Debe aceptar recibir información." : null }
+      ];
 
-          // Validación básica del segundo formulario
-          if (!firstName2.value.trim()) {
-              isValid = false;
-              alert("El nombre es obligatorio.");
-          }
-
-          if (!lastName2.value.trim()) {
-              isValid = false;
-              alert("El apellido es obligatorio.");
-          }
-
-          if (!email2.value.trim() || !email2.value.includes('@')) {
-              isValid = false;
-              alert("El correo es obligatorio y debe ser válido.");
-          }
-
-          if (!phone2.value.trim()) {
-              isValid = false;
-              alert("El teléfono es obligatorio.");
-          }
-
-          if (!empresa.value.trim()) {
-              isValid = false;
-              alert("La empresa es obligatoria.");
-          }
-
-          if (!comuauto.value.trim()) {
-              isValid = false;
-              alert("La comunidad autónoma es obligatoria.");
-          }
-
-          if (!provincia.value.trim()) {
-              isValid = false;
-              alert("La provincia es obligatoria.");
-          }
-
-          if (!municipio.value.trim()) {
-              isValid = false;
-              alert("El municipio es obligatorio.");
-          }
-
-          if (!codPostal.value.trim()) {
-              isValid = false;
-              alert("El código postal es obligatorio.");
-          }
-
-          if (!direccion.value.trim()) {
-              isValid = false;
-              alert("La dirección es obligatoria.");
-          }
-
-          if (!terminos2.checked) {
-              isValid = false;
-              alert("Debe aceptar los términos y condiciones.");
-          }
-
-          if (!contacto2.checked) {
-              isValid = false;
-              alert("Debe aceptar recibir información.");
-          }
-
-          if (isValid) {
-              formulario2.submit();  // Si todo es válido, enviar formulario
-          }
-      });
+      if (validateForm(formulario2, fields)) {
+        formulario2.submit();
+      }
+    });
   }
 });
