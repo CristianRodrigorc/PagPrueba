@@ -1,3 +1,4 @@
+// Requiere los paquetes necesarios
 const express = require('express');
 const bodyParser = require('body-parser');
 const XLSX = require('xlsx');
@@ -23,20 +24,9 @@ const auth = new google.auth.GoogleAuth({
 
 // Ruta para guardar los datos en un archivo Excel local
 app.post('/api/guardarFormulario', (req, res) => {
-  const { formType, firstName, lastName, email, phone, terminos, contacto, empresa, comuauto, provincia, municipio, codPostal, direccion } = req.body;
+  const { firstName, lastName, email, phone, terminos, contacto } = req.body;
 
-  let respuesta = {};
-
-  // Verificar el tipo de formulario y adaptar los datos a guardar
-  if (formType === 'form1') {
-    // Formulario 1: Trabaja con nosotros
-    respuesta = { firstName, lastName, email, phone, terminos, contacto };
-  } else if (formType === 'form2') {
-    // Formulario 2: Mejoremos tu Factura
-    respuesta = { firstName, lastName, email, phone, empresa, comuauto, provincia, municipio, codPostal, direccion, terminos, contacto };
-  } else {
-    return res.status(400).json({ message: 'Formulario no reconocido.' });
-  }
+  const respuesta = { firstName, lastName, email, phone, terminos, contacto };
 
   const filePath = path.join(__dirname, 'formulario_respuestas.xlsx');
 
@@ -75,19 +65,7 @@ app.post('/api/guardarFormulario', (req, res) => {
 // Ruta para enviar los datos a Google Sheets
 app.post('/api/enviarAGoogleSheet', async (req, res) => {
   try {
-    const { formType, firstName, lastName, email, phone, terminos, contacto, empresa, comuauto, provincia, municipio, codPostal, direccion } = req.body;
-
-    // Verificar el tipo de formulario y adaptar los datos a enviar
-    let values;
-    if (formType === 'form1') {
-      // Formulario 1: Trabaja con nosotros
-      values = [[firstName, lastName, email, phone, terminos, contacto]];
-    } else if (formType === 'form2') {
-      // Formulario 2: Mejoremos tu Factura
-      values = [[firstName, lastName, email, phone, empresa, comuauto, provincia, municipio, codPostal, direccion, terminos, contacto]];
-    } else {
-      return res.status(400).json({ message: 'Formulario no reconocido.' });
-    }
+    const { firstName, lastName, email, phone, terminos, contacto } = req.body;
 
     // Obtener el cliente de autenticación para Google
     const client = await auth.getClient();
@@ -96,6 +74,9 @@ app.post('/api/enviarAGoogleSheet', async (req, res) => {
     // ID de la hoja de Google Sheets (Reemplaza con el ID de tu hoja real)
     const spreadsheetId = '1m59KZA3I9bWt7htDmWQMI9iLc4qWyrxRpPFeh8lazaQ'; // Aquí debe ir el ID de tu Google Sheets
     const range = 'Colaboradores!A2:F'; // Asegúrate de tener una hoja llamada "Colaboradores"
+
+    // Datos que se agregarán al Google Sheets
+    const values = [[firstName, lastName, email, phone, terminos, contacto]];
 
     // Enviar los datos a Google Sheets
     await sheets.spreadsheets.values.append({
