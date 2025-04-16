@@ -4,12 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const validateForm = (form, fields) => {
         let isValid = true;
         let errorMessages = [];
-  
+
         // Validación de cada campo
         fields.forEach(field => {
             const input = document.getElementById(field.id);
             if (!input) return; // Si no existe el campo, no hacer nada
-  
+
             // Validación del campo
             let errorMessage = field.validate(input);
             if (errorMessage) {
@@ -17,26 +17,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 errorMessages.push(errorMessage);
             }
         });
-  
+
         // Si no es válido, mostrar los errores
         if (!isValid) {
             alert(errorMessages.join("\n"));
         }
-  
+
         return isValid;
     };
-  
+
     // Función para manejar el envío del formulario
     const handleFormSubmit = (form, fields) => {
         form.addEventListener('submit', (e) => {
             e.preventDefault();
-  
+
             if (validateForm(form, fields)) {
-                form.submit();  // Si todo es válido, enviar formulario
+                form.requestSubmit();  // Enviar el formulario con el método requestSubmit()
             }
         });
     };
-  
+
     // Validación para el primer formulario
     const formulario1 = document.querySelector('.contact-form.form-validate');
     if (formulario1) {
@@ -48,10 +48,10 @@ document.addEventListener('DOMContentLoaded', () => {
             { id: 'terminos1', validate: (input) => !input.checked ? "Debe aceptar los términos y condiciones." : null },
             { id: 'contacto1', validate: (input) => !input.checked ? "Debe aceptar recibir información." : null }
         ];
-  
+
         handleFormSubmit(formulario1, fields1);
     }
-  
+
     // Validación para el segundo formulario
     const formulario2 = document.querySelector('.contact-form.form-validate2');
     if (formulario2) {
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { id: 'terminos2', validate: (input) => !input.checked ? "Debe aceptar los términos y condiciones." : null },
             { id: 'contacto2', validate: (input) => !input.checked ? "Debe aceptar recibir información." : null }
         ];
-  
+
         handleFormSubmit(formulario2, fields2);
     }
-  });  
+});
