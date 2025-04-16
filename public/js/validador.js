@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-
     // Función de validación para cualquier formulario
     const validateForm = (form, fields) => {
         let isValid = true;
