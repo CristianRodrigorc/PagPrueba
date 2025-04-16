@@ -5,28 +5,24 @@ fetch('js/arbol.json')
     const provinciaSelect = document.getElementById('provincia');
     const municipioSelect = document.getElementById('municipio');
 
-    let selectedComunidad = '';
-    let selectedProvincia = '';
-    let selectedMunicipio = '';
-
-    // Cargar las Comunidades Autónomas
+    // Cargar Comunidades Autónomas
     data.forEach(comunidad => {
       const option = document.createElement('option');
-      option.value = comunidad.code; // Usamos el código, pero el nombre es lo que mostramos
+      option.value = comunidad.label; // ⬅️ Usamos el NOMBRE como valor
       option.textContent = comunidad.label;
       comunidadSelect.appendChild(option);
     });
 
-    // Cambiar Comunidad Autónoma → Provincias
+    // Cambiar Comunidad → Provincias
     comunidadSelect.addEventListener('change', () => {
       provinciaSelect.innerHTML = '<option value="">Seleccione una provincia</option>';
       municipioSelect.innerHTML = '<option value="">Seleccione un municipio</option>';
-      const comunidad = data.find(c => c.code === comunidadSelect.value);
+
+      const comunidad = data.find(c => c.label === comunidadSelect.value); // ⬅️ Buscamos por label
       if (comunidad) {
-        selectedComunidad = comunidad.label;  // Guardamos el nombre de la comunidad
         comunidad.provinces.forEach(provincia => {
           const option = document.createElement('option');
-          option.value = provincia.code;  // Usamos el código, pero el nombre es lo que mostramos
+          option.value = provincia.label; // ⬅️ Nombre como value
           option.textContent = provincia.label;
           provinciaSelect.appendChild(option);
         });
@@ -36,14 +32,14 @@ fetch('js/arbol.json')
     // Cambiar Provincia → Municipios
     provinciaSelect.addEventListener('change', () => {
       municipioSelect.innerHTML = '<option value="">Seleccione un municipio</option>';
-      const comunidad = data.find(c => c.code === comunidadSelect.value);
+
+      const comunidad = data.find(c => c.label === comunidadSelect.value);
       if (comunidad) {
-        const provincia = comunidad.provinces.find(p => p.code === provinciaSelect.value);
+        const provincia = comunidad.provinces.find(p => p.label === provinciaSelect.value); // ⬅️ por label
         if (provincia) {
-          selectedProvincia = provincia.label;  // Guardamos el nombre de la provincia
           provincia.towns.forEach(municipio => {
             const option = document.createElement('option');
-            option.value = municipio.code;  // Usamos el código, pero el nombre es lo que mostramos
+            option.value = municipio.label; // ⬅️ Nombre como value
             option.textContent = municipio.label;
             municipioSelect.appendChild(option);
           });
@@ -51,66 +47,19 @@ fetch('js/arbol.json')
       }
     });
 
-    // Cambiar Municipio seleccionado
-    municipioSelect.addEventListener('change', () => {
-      const comunidad = data.find(c => c.code === comunidadSelect.value);
-      if (comunidad) {
-        const provincia = comunidad.provinces.find(p => p.code === provinciaSelect.value);
-        if (provincia) {
-          const municipio = provincia.towns.find(t => t.code === municipioSelect.value);
-          if (municipio) {
-            selectedMunicipio = municipio.label;  // Guardamos el nombre del municipio
-          }
-        }
-      }
-    });
-
-    // Función para obtener el nombre de la Comunidad Autónoma seleccionada
-    function getSelectedComunidadName() {
-      const comunidad = data.find(c => c.code === comunidadSelect.value);
-      return comunidad ? comunidad.label : '';
-    }
-
-    // Función para obtener el nombre de la Provincia seleccionada
-    function getSelectedProvinciaName() {
-      const comunidad = data.find(c => c.code === comunidadSelect.value);
-      if (comunidad) {
-        const provincia = comunidad.provinces.find(p => p.code === provinciaSelect.value);
-        return provincia ? provincia.label : '';
-      }
-      return '';
-    }
-
-    // Función para obtener el nombre del Municipio seleccionado
-    function getSelectedMunicipioName() {
-      const comunidad = data.find(c => c.code === comunidadSelect.value);
-      if (comunidad) {
-        const provincia = comunidad.provinces.find(p => p.code === provinciaSelect.value);
-        if (provincia) {
-          const municipio = provincia.towns.find(t => t.code === municipioSelect.value);
-          return municipio ? municipio.label : '';
-        }
-      }
-      return '';
-    }
-
-    // Puedes usar estas funciones para obtener los nombres seleccionados y enviarlos al backend.
-    // Ejemplo de uso:
+    // EJEMPLO: Envío de los valores al hacer clic
     document.getElementById('submit-button').addEventListener('click', () => {
-      const comunidadName = getSelectedComunidadName();
-      const provinciaName = getSelectedProvinciaName();
-      const municipioName = getSelectedMunicipioName();
-      
-      // Aquí puedes enviar los nombres al backend:
-      console.log(`Comunidad: ${comunidadName}, Provincia: ${provinciaName}, Municipio: ${municipioName}`);
+      const comunidad = comunidadSelect.value;
+      const provincia = provinciaSelect.value;
+      const municipio = municipioSelect.value;
 
-      // Ejemplo de envío (si tienes un formulario):
-      // const formData = new FormData();
-      // formData.append('comunidad', comunidadName);
-      // formData.append('provincia', provinciaName);
-      // formData.append('municipio', municipioName);
-      // fetch('/backend-url', { method: 'POST', body: formData });
+      // Estos son los NOMBRES ya
+      console.log('Enviando:');
+      console.log('Comunidad:', comunidad);
+      console.log('Provincia:', provincia);
+      console.log('Municipio:', municipio);
+
+      // Aquí puedes hacer fetch o enviar con FormData
     });
-
   })
   .catch(error => console.error('Error al cargar arbol.json:', error));
