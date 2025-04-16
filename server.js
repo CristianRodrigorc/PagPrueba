@@ -86,7 +86,7 @@ app.post('/api/enviarAGoogleSheet', async (req, res) => {
       values = [[
         firstName, lastName, email, phone,
         empresa, comuauto, provincia, municipio, codPostal, direccion,
-        'no asignado', 'no contactado'
+        'NO ASIGNADO', 'POR CONTACTAR'
       ]];
       range = 'Lits!A2:M';
     } else {
