@@ -1,0 +1,70 @@
+#chat-bubble {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background: url('https://cdn-icons-png.flaticon.com/512/220/220236.png') no-repeat center center;
+    background-size: cover;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    z-index: 1000;
+  }
+  
+  #chat-window {
+    display: none;
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 260px;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    z-index: 1000;
+    font-family: Arial, sans-serif;
+  }
+  
+  #options button {
+    display: block;
+    width: 100%;
+    margin: 5px 0;
+    padding: 10px;
+    background: #e0f7fa;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: left;
+  }
+  
+  #options button:hover {
+    background: #b2ebf2;
+  }
+  
+  #respuesta {
+    padding: 10px;
+    background: #f1f1f1;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  
+  #volver {
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  #volver button {
+    padding: 8px 15px;
+    background: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #volver button:hover {
+    background: #45a049;
+  }
+  

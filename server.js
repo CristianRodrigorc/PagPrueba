@@ -13,13 +13,13 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Autenticación con Google Sheets
+// Autenticación con Google
 const auth = new google.auth.GoogleAuth({
   credentials: JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT),
   scopes: ['https://www.googleapis.com/auth/spreadsheets'],
 });
 
-// Guardar localmente en Excel
+// Guardar formulario localmente
 app.post('/api/guardarFormulario', (req, res) => {
   const {
     formType,
@@ -43,8 +43,8 @@ app.post('/api/guardarFormulario', (req, res) => {
   }
 
   const filePath = path.join(__dirname, 'formulario_respuestas.xlsx');
-
   let wb;
+
   if (fs.existsSync(filePath)) {
     wb = XLSX.readFile(filePath);
   } else {
@@ -52,7 +52,7 @@ app.post('/api/guardarFormulario', (req, res) => {
   }
 
   const ws = XLSX.utils.json_to_sheet([respuesta]);
-  const sheetName = formType === 'form1' ? 'Colaboradores' : 'Lits';
+  const sheetName = formType === 'form1' ? 'Colaboradores' : 'Leads';
 
   if (!wb.Sheets[sheetName]) {
     XLSX.utils.book_append_sheet(wb, ws, sheetName);
@@ -68,7 +68,7 @@ app.post('/api/guardarFormulario', (req, res) => {
   res.status(200).send({ message: 'Formulario guardado localmente en Excel.' });
 });
 
-// Enviar a Google Sheets
+// Enviar formulario a Google Sheets
 app.post('/api/enviarAGoogleSheet', async (req, res) => {
   try {
     const {
@@ -88,7 +88,7 @@ app.post('/api/enviarAGoogleSheet', async (req, res) => {
         empresa, comuauto, provincia, municipio, codPostal, direccion,
         'NO ASIGNADO', 'POR CONTACTAR'
       ]];
-      range = 'Lits!A2:M';
+      range = 'Leads!A2:M';
     } else {
       return res.status(400).json({ message: 'Formulario no reconocido.' });
     }
@@ -96,7 +96,7 @@ app.post('/api/enviarAGoogleSheet', async (req, res) => {
     const client = await auth.getClient();
     const sheets = google.sheets({ version: 'v4', auth: client });
 
-    const spreadsheetId = '1m59KZA3I9bWt7htDmWQMI9iLc4qWyrxRpPFeh8lazaQ'; // ID de tu hoja de cálculo
+    const spreadsheetId = '1m59KZA3I9bWt7htDmWQMI9iLc4qWyrxRpPFeh8lazaQ';
 
     await sheets.spreadsheets.values.append({
       spreadsheetId,
@@ -112,7 +112,41 @@ app.post('/api/enviarAGoogleSheet', async (req, res) => {
   }
 });
 
-// Puerto
+// Obtener opciones para el chatbot desde Google Sheets
+app.get('/api/opcionesChatbot', async (req, res) => {
+  try {
+    const client = await auth.getClient();
+    const sheets = google.sheets({ version: 'v4', auth: client });
+
+    const spreadsheetId = '1m59KZA3I9bWt7htDmWQMI9iLc4qWyrxRpPFeh8lazaQ';
+    const range = 'OpcionesChatbot!A2:C';
+
+    const response = await sheets.spreadsheets.values.get({
+      spreadsheetId,
+      range,
+    });
+
+    const rows = response.data.values;
+
+    if (!rows || rows.length === 0) {
+      return res.status(404).json({ message: 'No hay opciones en la hoja.' });
+    }
+
+    const opciones = rows.map(([id, texto, respuesta]) => ({
+      id,
+      texto,
+      respuesta
+    }));
+
+    res.json(opciones);
+  } catch (error) {
+    console.error('Error al leer las opciones del chatbot:', error);
+    res.status(500).json({ error: 'No se pudieron obtener las opciones.' });
+  }
+});
+
+
+// Iniciar servidor
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Servidor escuchando en http://localhost:${port}`);

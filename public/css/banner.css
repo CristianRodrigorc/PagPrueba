@@ -11,10 +11,6 @@
 .clients .single img {
     height: 35px; /* Ajusta la altura de la imagen a 25px */
     object-fit: contain; /* Asegura que las imágenes no se deformen, manteniendo su relación de aspecto */
-    -webkit-filter: grayscale(100%); /* Filtro para convertir las imágenes a escala de grises */
-    filter: grayscale(100%); /* Filtro para convertir las imágenes a escala de grises */
-    opacity: 0.6; /* Opacidad para darle un efecto visual */
-    transition: opacity 0.3s ease; /* Transición suave para el cambio de opacidad */
 }
 
 /* Efecto hover para las imágenes */
