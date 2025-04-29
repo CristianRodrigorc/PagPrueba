@@ -113,7 +113,7 @@ app.post('/api/enviarAGoogleSheet', async (req, res) => {
 });
 
 // Obtener opciones para el chatbot desde Google Sheets
-app.get('/api/opcionesChatbot', async (req, res) => {
+app.get('/api/OpcionesChatbot', async (req, res) => {
   try {
     const client = await auth.getClient();
     const sheets = google.sheets({ version: 'v4', auth: client });
