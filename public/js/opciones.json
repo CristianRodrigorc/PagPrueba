@@ -1,0 +1,17 @@
+[
+  {
+    "id": "saludo",
+    "texto": "👋 Saludar",
+    "respuesta": "Hola, ¿cómo estás hoy?"
+  },
+  {
+    "id": "hora",
+    "texto": "🕒 ¿Qué hora es?",
+    "respuesta": "Son las {hora} y {minuto} minutos."
+  },
+  {
+    "id": "despedida",
+    "texto": "👋 Despedirse",
+    "respuesta": "Adiós, que tengas un excelente día."
+  }
+]
