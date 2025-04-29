@@ -1,7 +1,7 @@
 let opciones = [];
 
 async function cargarOpciones() {
-  const res = await fetch('/api/OcionesChatbot');
+  const res = await fetch('/api/OpcionesChatbot');
   opciones = await res.json();
 
   const contenedor = document.getElementById('options');
