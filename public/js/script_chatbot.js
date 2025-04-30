@@ -22,6 +22,7 @@ async function cargarOpciones() {
   const contenedor = document.getElementById('options');
   contenedor.innerHTML = ''; // Limpiamos cualquier contenido previo
 
+  
   // Creamos un botón por cada opción que recibimos
   opciones.forEach(op => {
     const btn = document.createElement('button');
