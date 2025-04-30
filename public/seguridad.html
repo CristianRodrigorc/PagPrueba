@@ -225,6 +225,69 @@
     </div>
 
 
+     <!-- Ícono flotante -->
+     <div id="chat-bubble" onclick="toggleChat()"></div>
+
+     <!-- Envoltura del chatbot con categoría -->
+     <div id="chatbot" data-categoria="seguridad">
+ 
+         <!-- Ventana de chat -->
+         <div id="chat-window">
+ 
+             <!-- Opciones -->
+             <div id="options"></div>
+ 
+             <!-- Respuesta -->
+             <div id="respuesta" style="display: none;"></div>
+ 
+             <!-- Botón volver -->
+             <div id="volver" style="display: none;">
+                 <button onclick="volverAlMenu()">🔙 Volver</button>
+             </div>
+ 
+         </div>
+ 
+     </div>
+
+    <footer class="footer mt-5 py-4 bg-white shadow-lg">
+        <div class="container">
+            <div class="row">
+                <!-- Información de contacto -->
+                <div class="col-md-6 mb-3">
+                    <h5 id="contacto" class="text-primary fw-bold">Contacto</h5>
+                    <p class="mb-1">📍 Dirección: <a href="https://maps.app.goo.gl/qS7PMp4pBSMeJb6B6" target="_blank">Calle
+                            Álvarez 20, Madrid, España</a></p>
+                    <p class="mb-1">📞 Teléfono: <a href="tel:+34912912912">+34 912 912 912</a></p>
+                    <p class="mb-1">✉️ Email: <a href="mailto:contacto@stormforce.com">contacto@stormforce.com</a></p>
+                </div>
+    
+                <!-- Redes sociales -->
+                <div class="col-md-6 d-flex flex-column align-items-md-end align-items-start">
+                    <h5 class="text-primary fw-bold">Síguenos</h5>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-decoration-none text-dark fs-4" aria-label="Facebook">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none text-dark fs-4" aria-label="Twitter">
+                            <i class="bi bi-twitter-x"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none text-dark fs-4" aria-label="Instagram">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none text-dark fs-4" aria-label="LinkedIn">
+                            <i class="bi bi-linkedin"></i>
+    
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center text-muted small">
+                © 2025 Storm Force. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
     <!-- Validador Formulario -->
     <script src="js/validador.js"></script>
 
@@ -243,43 +306,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/scroll.js"></script>
 </body>
-<footer class="footer mt-5 py-4 bg-white shadow-lg">
-    <div class="container">
-        <div class="row">
-            <!-- Información de contacto -->
-            <div class="col-md-6 mb-3">
-                <h5 id="contacto" class="text-primary fw-bold">Contacto</h5>
-                <p class="mb-1">📍 Dirección: <a href="https://maps.app.goo.gl/qS7PMp4pBSMeJb6B6" target="_blank">Calle
-                        Álvarez 20, Madrid, España</a></p>
-                <p class="mb-1">📞 Teléfono: <a href="tel:+34912912912">+34 912 912 912</a></p>
-                <p class="mb-1">✉️ Email: <a href="mailto:contacto@stormforce.com">contacto@stormforce.com</a></p>
-            </div>
-
-            <!-- Redes sociales -->
-            <div class="col-md-6 d-flex flex-column align-items-md-end align-items-start">
-                <h5 class="text-primary fw-bold">Síguenos</h5>
-                <div class="d-flex gap-3">
-                    <a href="#" class="text-decoration-none text-dark fs-4" aria-label="Facebook">
-                        <i class="bi bi-facebook"></i>
-                    </a>
-                    <a href="#" class="text-decoration-none text-dark fs-4" aria-label="Twitter">
-                        <i class="bi bi-twitter-x"></i>
-                    </a>
-                    <a href="#" class="text-decoration-none text-dark fs-4" aria-label="Instagram">
-                        <i class="bi bi-instagram"></i>
-                    </a>
-                    <a href="#" class="text-decoration-none text-dark fs-4" aria-label="LinkedIn">
-                        <i class="bi bi-linkedin"></i>
-
-                    </a>
-                </div>
-            </div>
-        </div>
-        <hr>
-        <div class="text-center text-muted small">
-            © 2025 Storm Force. Todos los derechos reservados.
-        </div>
-    </div>
-</footer>
 
 </html>
