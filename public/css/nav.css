@@ -1,6 +1,7 @@
 /* Navbar por defecto (fondo transparente pero más oscura la sombra) */
 .navbar {
     position: absolute;
+    font-size: 1.35em;
     top: 0;
     left: 0;
     width: 100%;
@@ -22,7 +23,7 @@
 }
 
 .navbar-nav .nav-link {
-    color: #FFB319 !important;
+    color: #ffffff !important;
 }
 
 .navbar-light .navbar-nav .nav-link:hover {
