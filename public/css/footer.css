@@ -1,6 +1,6 @@
 .footer {
     border-radius: .625rem .625rem 0 0;
-    background-color: #fff;
+    background: linear-gradient(to left, #602E9E, #CB6CE6, #FF914D);
     color: #333;
 }
 

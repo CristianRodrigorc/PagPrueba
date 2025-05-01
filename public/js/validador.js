@@ -2,15 +2,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Función genérica para enviar cualquier formulario
     const enviarFormulario = async (datos, formType, formulario) => {
+      const boton = formulario.querySelector('button[type="submit"]');
+      boton.classList.add('loading');
+      boton.disabled = true;
+      boton.textContent = 'Enviando…';
+    
       try {
         const response = await fetch('/api/enviarAGoogleSheet', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ formType, ...datos })
         });
-  
+    
         const resultado = await response.json();
-  
+    
         if (response.ok) {
           alert('Formulario enviado correctamente.');
           formulario.reset();
@@ -20,6 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
       } catch (err) {
         console.error('Error en fetch:', err);
         alert('Error al enviar los datos.');
+      } finally {
+        boton.classList.remove('loading');
+        boton.disabled = false;
+        boton.textContent = 'Enviar';
       }
     };
   

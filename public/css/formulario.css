@@ -25,6 +25,7 @@
     padding: 4rem !important;
 }
 
+/* Título */
 .form-group h2 {
     background: linear-gradient(90deg, #376be6 0%, #6470ef 100%);
     -webkit-background-clip: text;
@@ -34,3 +35,49 @@
     font-size: 3rem;
     margin-bottom: 1rem;
 }
+
+/*Checkbox*/
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-left: 2.3rem;
+}
+
+.form-check-input {
+    margin: 0;
+    position: relative;
+    top: 0;
+}
+
+.form-check-label {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.btn-primary.loading {
+    position: relative;
+    pointer-events: none; /* desactiva clicks */
+    opacity: 0.8;
+  }
+  
+  .btn-primary.loading::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid transparent;
+    border-top: 2px solid white;
+    border-right: 2px solid white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    transform: translateY(-50%);
+  }
+  
+  @keyframes spin {
+    from { transform: translateY(-50%) rotate(0deg); }
+    to { transform: translateY(-50%) rotate(360deg); }
+  }

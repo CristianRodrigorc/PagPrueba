@@ -7,7 +7,7 @@
     width: 100%;
     z-index: 3;
     padding: 1rem 0;
-    background-color: #376be6; 
+    background: linear-gradient(to right, #602E9E, #CB6CE6, #FF914D); 
     box-shadow: 0 4px 16px rgba(0, 0, 0, 1.8); /* Sombra más intensa */
 }
 

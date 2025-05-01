@@ -2,11 +2,12 @@
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: 60px;
-    height: 60px;
-    background: url('https://cdn-icons-png.flaticon.com/512/220/220236.png') no-repeat center center;
+    width: 80px;
+    height: 80px;
+    background: url('/public/media/logos/logoStorm2.png') no-repeat center center;
     background-size: cover;
     border-radius: 50%;
+    border: 2px solid #FF914D;
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     z-index: 1000;
